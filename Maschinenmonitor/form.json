@@ -1,0 +1,141 @@
+{
+    "elements": [
+        {
+            "type": "ValidationTextBox",
+            "name": "Title",
+            "caption": "Titel der Anzeige",
+            "width": "400px"
+        },
+        {
+            "type": "ExpansionPanel",
+            "caption": "Maschine (Pflichtangaben)",
+            "expanded": true,
+            "items": [
+                { "type": "SelectVariable", "name": "CounterID", "caption": "Stückzähler (fortlaufend)", "width": "500px" },
+                { "type": "SelectVariable", "name": "CycleID", "caption": "Soll-Zykluszeit (ms)", "width": "500px" },
+                { "type": "SelectVariable", "name": "OnID", "caption": "Maschinenstatus AN/AUS (Bool oder 0/1)", "width": "500px" },
+                { "type": "SelectVariable", "name": "ModeID", "caption": "Betriebsart (1 Keine · 2 Einrichten · 3 Hand · 4 Auto · 5 Run)", "width": "500px" },
+                { "type": "SelectVariable", "name": "PowerID", "caption": "Leistung (kW)", "width": "500px" },
+                { "type": "SelectVariable", "name": "MeterID", "caption": "Energiezähler (fortlaufend kWh)", "width": "500px" }
+            ]
+        },
+        {
+            "type": "ExpansionPanel",
+            "caption": "Rezept",
+            "expanded": true,
+            "items": [
+                { "type": "SelectVariable", "name": "RecipeID", "caption": "Aktuell ausgewähltes Rezept", "width": "500px" },
+                {
+                    "type": "Label",
+                    "caption": "String-Variable oder Integer-Variable mit Profil (angezeigt wird der formatierte Wert). Leer lassen = keine Rezepterfassung. Stück, Strom, Medien, Laufzeit und Soll werden je Rezept für Schicht und Monat erfasst."
+                }
+            ]
+        },
+        {
+            "type": "ExpansionPanel",
+            "caption": "Prozesskälte (optional – leer = nicht vorhanden)",
+            "items": [
+                { "type": "SelectVariable", "name": "CoolVLTempID", "caption": "Vorlauftemperatur (°C)", "width": "500px" },
+                { "type": "SelectVariable", "name": "CoolRLTempID", "caption": "Rücklauftemperatur (°C)", "width": "500px" },
+                { "type": "SelectVariable", "name": "CoolFlowID", "caption": "Volumenstrom", "width": "500px" },
+                {
+                    "type": "Select",
+                    "name": "CoolFlowToM3h",
+                    "caption": "Einheit Volumenstrom",
+                    "options": [
+                        { "caption": "m³/h", "value": 1.0 },
+                        { "caption": "l/min", "value": 0.06 },
+                        { "caption": "l/h", "value": 0.001 }
+                    ]
+                },
+                { "type": "SelectVariable", "name": "CoolVLPresID", "caption": "Druck Vorlauf (bar, optional)", "width": "500px" },
+                { "type": "SelectVariable", "name": "CoolRLPresID", "caption": "Druck Rücklauf (bar, optional)", "width": "500px" },
+                { "type": "NumberSpinner", "name": "CoolRho", "caption": "Dichte Medium", "suffix": " kg/m³", "digits": 1 },
+                { "type": "NumberSpinner", "name": "CoolCp", "caption": "Wärmekapazität Medium", "suffix": " kJ/(kg·K)", "digits": 2 },
+                { "type": "NumberSpinner", "name": "PumpEta", "caption": "Wirkungsgrad Pumpe + Motor", "digits": 2, "minimum": 0.05, "maximum": 1 },
+                { "type": "Label", "caption": "Wasser: 998 kg/m³ / 4,18 kJ/(kg·K) · Glykol 30 %: ca. 1040 kg/m³ / 3,8 kJ/(kg·K)" }
+            ]
+        },
+        {
+            "type": "ExpansionPanel",
+            "caption": "Druckluft (optional – leer = nicht vorhanden)",
+            "items": [
+                { "type": "SelectVariable", "name": "AirHDID", "caption": "Blasluft Hochdruck (Nl/h)", "width": "500px" },
+                { "type": "SelectVariable", "name": "AirNDID", "caption": "Arbeitsluft Niederdruck (Nl/h)", "width": "500px" },
+                { "type": "NumberSpinner", "name": "AirHDkWh", "caption": "Strombedarf HD-Kompressor", "suffix": " kWh/Nm³", "digits": 3 },
+                { "type": "NumberSpinner", "name": "AirNDkWh", "caption": "Strombedarf ND-Kompressor", "suffix": " kWh/Nm³", "digits": 3 },
+                { "type": "Label", "caption": "Richtwerte: ND ~7 bar 0,10–0,13 · HD ~30–40 bar 0,20–0,30 kWh/Nm³" }
+            ]
+        },
+        {
+            "type": "ExpansionPanel",
+            "caption": "Energie gesamt je Kanister",
+            "items": [
+                { "type": "CheckBox", "name": "TotalIncludeCooling", "caption": "Kälte (thermisch + Pumpe) einrechnen" },
+                { "type": "CheckBox", "name": "TotalIncludeAir", "caption": "Druckluft (elektrisch umgerechnet) einrechnen" }
+            ]
+        },
+        {
+            "type": "ExpansionPanel",
+            "caption": "Schichten & Anzeige",
+            "items": [
+                { "type": "NumberSpinner", "name": "ShiftStartHour", "caption": "Beginn Frühschicht (3 × 8 h)", "suffix": " Uhr", "minimum": 0, "maximum": 23 },
+                {
+                    "type": "Select",
+                    "name": "FontMode",
+                    "caption": "Schrift Poppins",
+                    "options": [
+                        { "caption": "Lokal (webfront/user/fonts/)", "value": "lokal" },
+                        { "caption": "Google Fonts (Internet nötig)", "value": "google" },
+                        { "caption": "Systemschrift", "value": "system" }
+                    ]
+                },
+                { "type": "NumberSpinner", "name": "Days", "caption": "Tage in der Schichttabelle", "minimum": 1, "maximum": 14 },
+                { "type": "NumberSpinner", "name": "MonthTableRows", "caption": "Monate in der Monatstabelle", "minimum": 1, "maximum": 36 },
+                { "type": "CheckBox", "name": "HTMLBox", "caption": "Zusätzlich HTML-Box-Variable anlegen (für WebFront / Variablen-Kachel)" }
+            ]
+        },
+        {
+            "type": "ExpansionPanel",
+            "caption": "Erweitert",
+            "items": [
+                { "type": "NumberSpinner", "name": "TimerSeconds", "caption": "Messintervall", "suffix": " s", "minimum": 5 },
+                { "type": "NumberSpinner", "name": "MinEventGap", "caption": "Mindestabstand Ereignisse", "suffix": " s", "minimum": 0 },
+                { "type": "NumberSpinner", "name": "HtmlRefreshSeconds", "caption": "Anzeige aktualisieren alle", "suffix": " s", "minimum": 10 },
+                { "type": "NumberSpinner", "name": "MaxArchiveShifts", "caption": "Gespeicherte Schichten", "minimum": 21 },
+                { "type": "NumberSpinner", "name": "MaxArchiveMonths", "caption": "Gespeicherte Monate", "minimum": 1 },
+                { "type": "NumberSpinner", "name": "MaxHistoryPoints", "caption": "Verlaufspunkte (× Messintervall = Verlaufsdauer)", "minimum": 10 },
+                { "type": "NumberSpinner", "name": "MaxSampleGap", "caption": "Messlücke ab", "suffix": " s", "minimum": 10 }
+            ]
+        }
+    ],
+    "actions": [
+        { "type": "Button", "caption": "Jetzt aktualisieren", "onClick": "echo MMR_Update($id);" },
+        {
+            "type": "ExpansionPanel",
+            "caption": "Daten aus dem bisherigen Skript übernehmen",
+            "items": [
+                { "type": "Label", "caption": "Übernimmt laufende Schicht, Schicht- und Monatsarchiv sowie Verlauf aus dem alten Maschinenmonitor-Skript. Danach Timer und Ereignisse des alten Skripts deaktivieren." },
+                { "type": "SelectScript", "name": "ImportScriptID", "caption": "Altes Skript", "width": "500px" },
+                {
+                    "type": "Button",
+                    "caption": "Daten übernehmen",
+                    "confirm": "Vorhandene Daten dieser Instanz werden überschrieben. Fortfahren?",
+                    "onClick": "echo MMR_ImportFromScript($id, $ImportScriptID);"
+                }
+            ]
+        },
+        {
+            "type": "Button",
+            "caption": "Alle Daten zurücksetzen",
+            "confirm": "Schichten, Monate und Verlauf dieser Instanz werden gelöscht. Fortfahren?",
+            "onClick": "echo MMR_ResetData($id);"
+        }
+    ],
+    "status": [
+        { "code": 102, "icon": "active", "caption": "Aktiv" },
+        { "code": 201, "icon": "error", "caption": "Pflichtvariable fehlt oder existiert nicht (Maschine bzw. konfigurierte Medien)" },
+        { "code": 202, "icon": "error", "caption": "Variable mit ungültigem Datentyp (erlaubt: Boolean, Integer, Float)" },
+        { "code": 203, "icon": "error", "caption": "Rezeptvariable existiert nicht" }
+    ]
+}

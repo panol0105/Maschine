@@ -1,0 +1,13 @@
+{
+    "id": "{62D44236-C734-4FFC-A81A-60A22D169223}",
+    "name": "Maschinenmonitor",
+    "type": 3,
+    "vendor": "",
+    "aliases": [
+        "Maschinenmonitor"
+    ],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "MMR"
+}
