@@ -8,15 +8,12 @@
 (function () {
     'use strict';
 
-    var zoomKey = null;
-    try { zoomKey = window.sessionStorage.getItem('mmrZoom'); } catch (e) { zoomKey = null; }
+    // Nur einmal initialisieren (falls das Skript doppelt geladen wird)
+    if (window.__mmrInit) { return; }
+    window.__mmrInit = true;
 
-    function save() {
-        try {
-            if (zoomKey) { window.sessionStorage.setItem('mmrZoom', zoomKey); }
-            else { window.sessionStorage.removeItem('mmrZoom'); }
-        } catch (e) { /* Speicher nicht verfügbar */ }
-    }
+    // Offene Vergrößerung nur im Speicher merken (nicht über Neuladen hinweg)
+    var zoomKey = null;
 
     function root() { return document.getElementById('mmr-root'); }
     function fhd() { var r = root(); return r ? r.querySelector('.fhd') : null; }
@@ -110,7 +107,6 @@
         var l = layer();
         if (l) { l.parentNode.removeChild(l); }
         zoomKey = null;
-        save();
     }
 
     function openZoom(key, keepScroll) {
@@ -118,7 +114,7 @@
         if (!f) { return; }
 
         var src = f.querySelector('[data-zoom="' + key + '"]');
-        if (!src) { zoomKey = null; save(); return; }
+        if (!src) { zoomKey = null; return; }
 
         var old = layer();
         if (old) { old.parentNode.removeChild(old); }
@@ -126,21 +122,36 @@
         var l = document.createElement('div');
         l.className = 'fhd-zoomlayer';
 
-        var card = src.cloneNode(true);
-        card.classList.add('fhd-zoomed');
-        card.removeAttribute('title');
-        l.appendChild(card);
-
+        // Leiste mit gut treffbarer Schließen-Taste (feste Mindestgröße)
+        var bar = document.createElement('div');
+        bar.className = 'fhd-zoombar';
+        var hint = document.createElement('span');
+        hint.className = 'fhd-zoomhint';
+        hint.textContent = key === 'chart'
+            ? 'Im Diagramm tippen zeigt Messwerte'
+            : 'Zum Schließen irgendwo tippen';
         var b = document.createElement('button');
         b.type = 'button';
         b.className = 'fhd-close';
         b.setAttribute('aria-label', 'Schließen');
-        b.textContent = '✕';
-        l.appendChild(b);
+        b.textContent = '✕  Schließen';
+        b.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeZoom();
+        });
+        bar.appendChild(hint);
+        bar.appendChild(b);
+        l.appendChild(bar);
+
+        var card = src.cloneNode(true);
+        card.classList.add('fhd-zoomed');
+        card.removeAttribute('title');
+        card.removeAttribute('data-zoom');
+        l.appendChild(card);
 
         f.appendChild(l);
         zoomKey = key;
-        save();
         initChart(card);
 
         if (keepScroll) {
@@ -202,8 +213,6 @@
 
     window.mmrRender = render;
 
-    // Erstaufbau: geöffnete Vergrößerung wiederherstellen
-    if (zoomKey) { openZoom(zoomKey); }
 })();
 
 /* Symcon Kachel-Visualisierung (HTML-SDK) */

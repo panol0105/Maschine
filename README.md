@@ -41,7 +41,7 @@ Kachelgröße; im Hochformat (Handy) werden die Bereiche untereinander gezeigt.
 
 ### Vergrößern
 Jeden Bereich antippen bzw. anklicken → er füllt die ganze Kachel.
-Schließen mit ✕, Tippen in den Bereich oder Esc. Die Vergrößerung bleibt bei
+Schließen mit der Taste „✕ Schließen“ oben rechts, durch Tippen in den Bereich (außer im Diagramm) oder mit Esc. Die Vergrößerung bleibt bei
 der automatischen Aktualisierung offen.
 
 In der Vergrößerung zusätzlich:
