@@ -397,8 +397,8 @@ html, body {
     flex-direction: column;
     gap: calc(8 * var(--u0));
     cursor: pointer;
-    padding: calc(14 * var(--u0)) calc(18 * var(--u0)) calc(10 * var(--u0));
-    background: rgba(240,240,240,.97);
+    padding: max(44px, calc(14 * var(--u0))) calc(18 * var(--u0)) calc(10 * var(--u0));
+    background: rgb(240,240,240);
     animation: fhdIn .16s ease-out;
 }
 @keyframes fhdIn { from { opacity: 0; transform: scale(.985); } to { opacity: 1; transform: none; } }
@@ -600,7 +600,7 @@ html, body {
         position: fixed;
         inset: 0;
         display: block;
-        padding: 8px;
+        padding: 48px 8px 8px;
         overflow-y: auto;
     }
     .fhd-card.fhd-zoomed {
@@ -610,9 +610,9 @@ html, body {
     }
     .fhd-zoombar {
         position: sticky;
-        top: -8px;
+        bottom: -8px;
         z-index: 6;
-        margin: -8px -8px 8px;
+        margin: 8px -8px -8px;
         padding: 8px;
         background: rgba(240,240,240,.97);
     }

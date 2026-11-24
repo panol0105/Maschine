@@ -128,7 +128,7 @@
         var hint = document.createElement('span');
         hint.className = 'fhd-zoomhint';
         hint.textContent = key === 'chart'
-            ? 'Im Diagramm tippen zeigt Messwerte'
+            ? 'Im Diagramm tippen zeigt Messwerte · Doppeltippen oder außerhalb tippen schließt'
             : 'Zum Schließen irgendwo tippen';
         var b = document.createElement('button');
         b.type = 'button';
@@ -142,13 +142,16 @@
         });
         bar.appendChild(hint);
         bar.appendChild(b);
-        l.appendChild(bar);
 
         var card = src.cloneNode(true);
         card.classList.add('fhd-zoomed');
         card.removeAttribute('title');
         card.removeAttribute('data-zoom');
+
+        // Bedienleiste UNTEN: der obere Rand der Kachel wird von der
+        // Symcon-Titelleiste überdeckt und nimmt dort keine Klicks an.
         l.appendChild(card);
+        l.appendChild(bar);
 
         f.appendChild(l);
         zoomKey = key;
@@ -182,6 +185,10 @@
         if (z && root() && root().contains(z)) {
             openZoom(z.getAttribute('data-zoom'));
         }
+    });
+
+    document.addEventListener('dblclick', function (e) {
+        if (e.target && e.target.closest && e.target.closest('.fhd-zoomlayer')) { closeZoom(); }
     });
 
     document.addEventListener('keydown', function (e) {
